@@ -1,5 +1,6 @@
 import User from '../models/User';
 
+const maxAge = 3 * 24 * 60 * 60;
 
 const handleErrors = (error) => {
     console.log(error.message, error.code)
@@ -19,6 +20,11 @@ const handleErrors = (error) => {
     return errors;
 }
 
+const createToken = (id) => {
+    return jwt.sign({ id }, 'SECRET_API', {
+        expiresIn: maxAge
+    })
+}
 
 const loginUser = async (request, response) => {
     
@@ -31,7 +37,7 @@ const registerUser = async (request, response) => {
         const registeredUser = await User.create(body);
         const token = createToken(registeredUser._id)
         response.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000})
-        return response.status(201).send(registeredUser)
+        return response.status(201).send({user: registerUser._id})
     } catch (error) {
         const errors = handleErrors(error)
         return response.status(400).json({ errors })
