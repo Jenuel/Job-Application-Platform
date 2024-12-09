@@ -6,6 +6,14 @@ const handleErrors = (error) => {
     console.log(error.message, error.code)
     const errors = { email: ''}
 
+    if(error.message === 'Incorrect username') {
+        error.username = 'Incorrect username'
+    }
+
+    if(error.message === 'Incorrect password') {
+        error.username = 'Incorrect password'
+    }
+
     if(error.code === 11000){
         errors.email = "Username is taken"
         return errors;
@@ -31,9 +39,12 @@ const loginUser = async (request, response) => {
 
     try {
         const user = await User.login(username, password)
+        const token = createToken(user._id)
+        response.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000})
         response.status(200).json({user: user._id})
     } catch (error) {
-        response.status(400).json({})
+        const errors = handleErrors(error)
+        response.status(400).json({errors})
     }
 };
 
