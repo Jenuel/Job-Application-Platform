@@ -27,7 +27,14 @@ const createToken = (id) => {
 }
 
 const loginUser = async (request, response) => {
-    
+    const { username, password } = request.body
+
+    try {
+        const user = await User.login(username, password)
+        response.status(200).json({user: user._id})
+    } catch (error) {
+        response.status(400).json({})
+    }
 };
 
 const registerUser = async (request, response) => {
