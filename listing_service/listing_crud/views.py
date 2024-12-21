@@ -38,4 +38,14 @@ def edit_job(request, id):
     
     return Response(serializer.data)
 
+@api_view(['DELETE'])
+def delete_job(request, id):
+    try:
+        job = Job.objects.get(id=id)
+        job.delete()
+        return Response({"message": "Job deleted successfully"}, status=200)
+    except Job.DoesNotExist:
 
+        return Response({"error": "Job not found"}, status=404)
+    except Exception as e:
+        return Response({"error": f"An error occurred: {str(e)}"}, status=500)
