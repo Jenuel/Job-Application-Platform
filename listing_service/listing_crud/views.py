@@ -5,9 +5,12 @@ from .serializers import JobSerializer
 from .models import Job
 
 # Create your views here.
+@api_view(['GET'])
 def get_jobs(request):
     jobs =  Job.objects.all()
     serializer = JobSerializer(jobs, many=True)
     return Response(serializer.data, status=200)
-  
+
+
+
 
