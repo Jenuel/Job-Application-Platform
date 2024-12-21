@@ -12,9 +12,9 @@ def get_jobs(request):
     return Response(serializer.data, status=200)
 
 @api_view(['GET'])
-def get_job_details(request, job_id):
+def get_job_details(request, id):
     try:
-        job = Job.objects.get(id=job_id)
+        job = Job.objects.get(id=id)
         serializer = JobSerializer(job)
         return Response(serializer.data, status=200)
     except Job.DoesNotExist:
@@ -28,7 +28,14 @@ def create_job(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=401)
 
+@api_view(['POST'])
+def edit_job(request, id):
+    job = Job.objects.get(id=id)
+    serializer = JobSerializer(instance=job, data=request.data)
 
-
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
 
 
