@@ -8,3 +8,6 @@ class Job(models.Model):
     rating = models.CharField()
     wage = models.IntegerField()
     acc_id = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+#not yet migrated
