@@ -11,6 +11,15 @@ def get_jobs(request):
     serializer = JobSerializer(jobs, many=True)
     return Response(serializer.data, status=200)
 
+@api_view(['GET'])
+def get_job_details(request, job_id):
+    try:
+        job = Job.objects.get(id=job_id)
+        serializer = JobSerializer(job)
+        return Response(serializer.data, status=200)
+    except Job.DoesNotExist:
+        return Response({"error": "Job not found"}, status=404)
+
 @api_view(['POST'])
 def create_job(request):
     serializer = JobSerializer(data=request.data)
