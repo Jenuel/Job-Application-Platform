@@ -29,8 +29,8 @@ const applyToJob = async (request, response) => {
     const { userId } = request.body;
 
     const jobApplication = {
-        jobId,
-        userId,
+        talent_id,
+        job_id,
         status: 'Pending'
     };
 
@@ -43,4 +43,18 @@ const applyToJob = async (request, response) => {
     }
 };
 
-export { applyToJob };
+const updateApplication = async (request, response) => {
+    const { appId } = request.params;
+    const { status } = request.body;
+
+    try {
+        const result = await db.query('UPDATE applications SET status = ? WHERE application_id = ?', [status, userId]);
+        response.status(200).json(result);
+    } catch (error) {
+        const errors = handleErrors(error);
+        response.status(400).json({ errors });
+    }
+};
+
+
+export { applyToJob, updateApplication };

@@ -1,8 +1,8 @@
 import express from 'express'
-import { applyToJob } from '../controllers/applicationController';
+import { applyToJob, updateApplication } from '../controllers/applicationController';
 
 const router = express.Router();
 
 router.post("/apply/:jobId", applyToJob);
-
+router.patch("/apply/:appId", updateApplication);
 export default router;
