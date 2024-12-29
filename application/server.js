@@ -1,5 +1,6 @@
 import express from 'express';
 import mysql2 from 'mysql2';
+import applicationRoutes from './routes/applicationRoutes';
 
 const app = express();
 const port = 3000;
@@ -20,6 +21,7 @@ db.connect((err) => {
 });
 
 app.use(express.json());
+app.use('/applications', applicationRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
