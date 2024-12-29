@@ -24,6 +24,15 @@ const handleErrors = (error) => {
     return errors;
 }
 
+const getApplications = async (request, response) => {
+    try {
+        const result = await db.query('SELECT * FROM applications');
+        response.status(200).json(result);
+    } catch (error) {
+        response.status(400).json({ error: error.message });
+    }
+};
+    
 const applyToJob = async (request, response) => {
     const { jobId } = request.params;
     const { userId } = request.body;
@@ -57,4 +66,4 @@ const updateApplication = async (request, response) => {
 };
 
 
-export { applyToJob, updateApplication };
+export { getApplications, applyToJob, updateApplication };
