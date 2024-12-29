@@ -32,7 +32,18 @@ const getApplications = async (request, response) => {
         response.status(400).json({ error: error.message });
     }
 };
-    
+
+const getApplication = async (request, response) => {
+    const { appId } = request.params;
+
+    try {
+        const result = await db.query('SELECT * FROM applications WHERE application_id = ?', appId);
+        response.status(200).json(result);
+    } catch (error) {
+        response.status(400).json({ error: error.message });
+    }
+};
+
 const applyToJob = async (request, response) => {
     const { jobId } = request.params;
     const { userId } = request.body;
