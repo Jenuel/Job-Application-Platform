@@ -77,4 +77,4 @@ const updateApplication = async (request, response) => {
 };
 
 
-export { getApplications, applyToJob, updateApplication };
+export { getApplications, getApplication, applyToJob, updateApplication };
