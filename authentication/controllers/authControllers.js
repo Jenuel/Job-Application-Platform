@@ -1,4 +1,4 @@
-import User from '../models/User';
+import User from '../models/User.js';
 
 const maxAge = 3 * 24 * 60 * 60;
 
