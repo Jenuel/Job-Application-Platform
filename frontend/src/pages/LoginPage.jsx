@@ -4,8 +4,17 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-  };
+    const email = e.target.formBasicEmail.value;
+    const password = e.target.formBasicPassword.value;
+
+    axios.post('https://localhost:3000/auth/login', { email, password })
+        .then(response => {
+            console.log('Login successful:', response.data);
+        })
+        .catch(error => {
+            console.error('There was an error logging in:', error);
+        });
+    };
 
   return (
     <Container
