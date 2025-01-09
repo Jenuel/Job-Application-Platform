@@ -1,10 +1,11 @@
 import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
 
 const maxAge = 3 * 24 * 60 * 60;
 
 const handleErrors = (error) => {
     console.log(error.message, error.code)
-    const errors = { email: ''}
+    const errors = { username: ''}
 
     if(error.message === 'Incorrect username') {
         error.username = 'Incorrect username'
@@ -15,11 +16,11 @@ const handleErrors = (error) => {
     }
 
     if(error.code === 11000){
-        errors.email = "Username is taken"
+        errors.username = "Username is taken"
         return errors;
     }
     
-    if(console.message.includes('user validation failed')) {
+    if(console.message && console.message.includes('user validation failed')) {
         Object.values(error.errors).forEach(({ properties}) => {
             errors[properties] = properties.message;
         })
@@ -62,4 +63,4 @@ const registerUser = async (request, response) => {
     }
 };
 
-export { loginUser };
+export { loginUser, registerUser };
