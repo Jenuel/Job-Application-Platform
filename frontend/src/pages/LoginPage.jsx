@@ -14,7 +14,7 @@ const LoginPage = () => {
         .catch(error => {
             console.error('There was an error logging in:', error);
         });
-    };
+  };
 
   return (
     <Container
