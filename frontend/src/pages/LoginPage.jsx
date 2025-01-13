@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.formBasicEmail.value;
@@ -9,7 +12,8 @@ const LoginPage = () => {
 
     axios.post('https://localhost:3000/auth/login', { email, password })
         .then(response => {
-            console.log('Login successful:', response.data);
+          localStorage.setItem('token', response.data.token);
+          navigate('/jobs');
         })
         .catch(error => {
             console.error('There was an error logging in:', error);
