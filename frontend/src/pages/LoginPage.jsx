@@ -1,69 +1,86 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 
-const LoginPage = () => {
-  const navigate = useNavigate();
+const RegistrationPage = () => {
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const email = e.target.formBasicEmail.value;
-    const password = e.target.formBasicPassword.value;
-
-    axios.post('https://localhost:3000/auth/login', { email, password })
-        .then(response => {
-          localStorage.setItem('token', response.data.token);
-          navigate('/jobs');
-        })
-        .catch(error => {
-            console.error('There was an error logging in:', error);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
         });
-  };
+    };
 
-  return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <Row>
-        <Col>
-          <Card style={{ width: "25rem" }} className="shadow-sm p-4">
-            <Card.Body>
-              <h3 className="text-center mb-4">Login</h3>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicEmail" className="mb-3">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter email"
-                    required
-                  />
-                </Form.Group>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission logic here
+        console.log(formData);
+    };
 
-                <Form.Group controlId="formBasicPassword" className="mb-3">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    required
-                  />
-                </Form.Group>
-
-                <Button variant="primary" type="submit" className="w-100">
-                  Login
-                </Button>
-              </Form>
-            </Card.Body>
-            <Card.Footer className="text-center mt-3">
-              <small>
-                Don't have an account? <a href="#register">Sign up</a>
-              </small>
-            </Card.Footer>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
+    return (
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col xs={12} md={6} lg={4}>
+                    <Card className="shadow-sm">
+                        <Card.Body>
+                            <Card.Title className="text-center mb-4">Login</Card.Title>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="username">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="email">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="confirmPassword">
+                                    <Form.Label>Confirm Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="confirmPassword"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button variant="primary" type="submit" className="w-100">
+                                    Register
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
-export default LoginPage;
+export default RegistrationPage;
