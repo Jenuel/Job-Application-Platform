@@ -79,8 +79,9 @@ const RegistrationPage = () => {
                                     />
                                 </Form.Group>
                                 <Button variant="primary" type="submit" className="w-100">
-                                    Register
+                                    Login
                                 </Button>
+                                <p>Don't have an account? <a href="/register">Register</a> </p>
                             </Form>
                         </Card.Body>
                     </Card>

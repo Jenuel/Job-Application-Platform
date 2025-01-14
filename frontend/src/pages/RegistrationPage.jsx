@@ -180,6 +180,7 @@ const RegistrationPage = () => {
                                 <Button variant="primary" type="submit" className="w-100">
                                     Register
                                 </Button>
+                                <p>Already have an account? <a href="/">Login</a> </p>
                             </Form>
                         </Card.Body>
                     </Card>
