@@ -71,7 +71,14 @@ const RegistrationPage = () => {
             userType,
         };
 
-        console.log(formData);
+        axios.post('https://localhost:3000/auth/register', formData)
+        .then(response => {
+            console.log('Registration successful:', response.data);
+            navigate('/');
+        })
+        .catch(error => {
+            setError('An error occurred. Please try again.');
+        });
     };
 
     return (

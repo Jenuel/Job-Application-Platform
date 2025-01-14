@@ -19,8 +19,15 @@ const RegistrationPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log(formData);
+    
+        axios.post('https://localhost:3000/auth/login', { email, password })
+        .then(response => {
+            localStorage.setItem('token', response.data.token);
+            navigate('/jobs');
+        })
+        .catch(error => {
+            console.error('There was an error logging in:', error);
+        });
     };
 
     return (
@@ -81,6 +88,6 @@ const RegistrationPage = () => {
             </Row>
         </Container>
     );
-};
+}
 
 export default RegistrationPage;
