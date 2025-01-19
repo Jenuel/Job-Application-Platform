@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 
 const RegistrationPage = () => {
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
@@ -71,7 +74,7 @@ const RegistrationPage = () => {
             userType,
         };
 
-        axios.post('https://localhost:3000/auth/register', formData)
+        axios.post('http://localhost:3000/auth/register', formData)
         .then(response => {
             console.log('Registration successful:', response.data);
             navigate('/');
