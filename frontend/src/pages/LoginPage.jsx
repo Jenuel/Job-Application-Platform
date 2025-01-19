@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 
 const RegistrationPage = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -20,7 +23,8 @@ const RegistrationPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     
-        axios.post('https://localhost:3000/auth/login', { email, password })
+        const { username, password } = formData;
+        axios.post('http://localhost:3000/auth/login', { username, password })
         .then(response => {
             localStorage.setItem('token', response.data.token);
             navigate('/jobs');
@@ -48,32 +52,12 @@ const RegistrationPage = () => {
                                         required
                                     />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="email">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Form.Group>
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         type="password"
                                         name="password"
                                         value={formData.password}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="confirmPassword">
-                                    <Form.Label>Confirm Password</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
                                         onChange={handleChange}
                                         required
                                     />
