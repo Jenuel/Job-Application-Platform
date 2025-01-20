@@ -1,5 +1,5 @@
 import express from 'express'
-import { getApplications, getApplication, applyToJob, updateApplication } from '../controllers/applicationController';
+import { getApplications, getApplication, applyToJob, updateApplication } from '../controllers/applicationController.js';
 
 const router = express.Router();
 

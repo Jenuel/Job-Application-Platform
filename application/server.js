@@ -1,6 +1,6 @@
 import express from 'express';
 import mysql2 from 'mysql2';
-import applicationRoutes from './routes/applicationRoutes';
+import applicationRoutes from './routes/applicationRoutes.js';
 
 const app = express();
 const port = 3000;
