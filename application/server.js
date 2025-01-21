@@ -5,24 +5,30 @@ import applicationRoutes from './routes/applicationRoutes.js';
 const app = express();
 const port = 3000;
 
-const db = mysql2.createConnection({
+const pool = mysql2.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'jobapplication'
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
+app.use(async (request, response, next) => {
+    try {
+        const connection = await pool.promise().getConnection();
+        request.db = connection;
+        response.on('finish', () => {
+            if (request.db) request.db.release();
+        });
+        next();
+    } catch (error) {
+        console.error('Error getting database connection:', error);
+        response.status(500).send('Internal Server Error');
     }
-    console.log('Connected to the MySQL database.');
 });
 
 app.use(express.json());
 app.use('/applications', applicationRoutes);
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
