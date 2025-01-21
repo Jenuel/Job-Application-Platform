@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Import Link
-import jobTestData from "./testData"; // Import the test data
+import { Link } from "react-router-dom"; 
+import jobTestData from "./testData";
 
+/**
+ * Client Side
+ */
 function JobPage() {
   return (
     <div>
