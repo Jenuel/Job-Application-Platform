@@ -6,5 +6,5 @@ const router = express.Router();
 router.get("/all", getApplications);
 router.get("/specific/:appId", getApplication);
 router.post("/:jobId", applyToJob);
-router.patch("update/:appId", updateApplication);
+router.patch("/update/:appId", updateApplication);
 export default router;

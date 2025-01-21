@@ -1,5 +1,3 @@
-import mysql from 'mysql2/promise';
-    
 const getApplications = async (request, response) => {
     const db = request.db;
 
@@ -50,8 +48,8 @@ const updateApplication = async (request, response) => {
     const { status } = request.body;
 
     try {
-        const result = await db.query('UPDATE applications SET status = ? WHERE application_id = ?', [status, userId]);
-        response.status(200).json(result);
+        const [rows] = await db.query('UPDATE applications SET status = ? WHERE application_id = ?', [status, appId]);
+        response.status(200).json(rows);
     } catch (error) {
         response.status(400).json({ error: error.message });  
     }
