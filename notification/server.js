@@ -9,12 +9,13 @@ const server = http.createServer(app);
 
 app.use(cors());
 app.use(express.json()); 
+app.use("/notifications", notificationRoutes);
 
 const pool = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'password',
-  database: 'mydatabase'
+  password: '',
+  database: ''
 })
 
 setupSocket(server, pool);
