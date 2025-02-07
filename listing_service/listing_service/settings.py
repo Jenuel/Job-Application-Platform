@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
     'listing_crud'
 ]
 
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'listing_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_test_db',
+        'NAME': 'jobapplication',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
