@@ -12,18 +12,24 @@ export const setupSocket = (server, pool) => {
     console.log("A user connected:", socket.id);
 
     socket.on("send-notification", async (data) => {
-      const { userId, message, type } = data; //FIXME: Ensure data is consistent with the expected format
+      const { userId, message, type } = data; 
 
       try {
         const [result] = await pool.query(
-          
+          "INSERT INTO notifications (userID, message, type, is_read, created_at) VALUES (?, ?, ?, ?, NOW())",
+          [userId, message, type, false]
         );
 
         const savedNotification = {
-            //TBD
+          id: result.insertId,
+          userId,
+          message,
+          type,
+          is_read: false,
+          created_at: new Date(),
         };
 
-        io.emit("new-notification", savedNotification);
+        io.emit(userId).emit("new-notification", savedNotification);
       } catch (err) {
         console.error("Error saving notification:", err);
       }
