@@ -3,7 +3,7 @@ const getApplications = async (request, response) => {
 
     try {
         const [rows] = await db.query('SELECT * FROM applications');
-        response.status(200).json(rows); // Send only the data
+        response.status(200).json(rows); 
     } catch (error) {
         console.error('Error fetching applications:', error);
         response.status(500).json({ error: error.message });
