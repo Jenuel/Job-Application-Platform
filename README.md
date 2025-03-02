@@ -1,5 +1,13 @@
 # Job-Application-Platform
 
+## Features
+
+## Technical Details
+Application Service: 3000
+Authentication Service: 4000
+Frontend Service: 
+Listing Service:
+Notification Service: 6000
 
 ### Authenticaiton Service
 ```nodemon index.js```
